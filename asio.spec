@@ -1,28 +1,23 @@
-#
-# spec file for package asio
-#
-
-# asio only ships headers, so no debuginfo package is needed
-
-%global debug_package %{nil}
-
 Summary:	A cross-platform C++ library for network and low-level I/O programming
 Summary(pl.UTF-8):	Wieloplatformowa biblioteka C++ do programowania sieci i niskopoziomowych operacji we/wy
 Name:		asio
 Version:	1.26.0
 Release:	1
-License:	Boost
+License:	Boost v1.0
 Group:		Development/Libraries
 URL:		https://think-async.com
 Source0:	http://downloads.sourceforge.net/asio/%{name}-%{version}.tar.bz2
 # Source0-md5:	5eff56aba0f54576f3d5f55b7730281b
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	boost-devel
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtool
 BuildRequires:	openssl-devel
 BuildRequires:	pkgconfig
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+# header-only library
+%define		_enable_debug_packages	0
 
 %description
 Asio is a cross-platform C++ library for network and low-level I/O
@@ -48,8 +43,8 @@ Asio is a cross-platform C++ library for network and low-level I/O
 programming that provides developers with a consistent asynchronous
 I/O model using a modern C++ approach.
 
-%description -l pl.UTF-8
-Header files you can use to develop applications with asio.
+%description devel -l pl.UTF-8
+Pliki nagłówkowe do tworzenia aplikacji z użyciem asio.
 
 Asio to międzyplatformowa biblioteka C++ do programowania sieciowego i
 niskopoziomowego we/wy, która zapewnia programistom spójny
@@ -59,22 +54,24 @@ synchroniczny model we/wy przy użyciu nowoczesnego podejścia C++.
 %setup -q
 
 %build
-autoreconf -fvi
+%{__aclocal}
+%{__autoconf}
+%{__automake}
 %configure
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%clean
+rm -rf $RPM_BUILD_ROOT
+
 %files devel
 %defattr(644,root,root,755)
-%doc COPYING LICENSE_1_0.txt
-%doc doc/*
+%doc COPYING LICENSE_1_0.txt README doc
 %{_includedir}/asio
 %{_includedir}/asio.hpp
 %{_pkgconfigdir}/asio.pc
-
-%clean
-rm -rf $RPM_BUILD_ROOT
