@@ -1,13 +1,13 @@
 Summary:	A cross-platform C++ library for network and low-level I/O programming
 Summary(pl.UTF-8):	Wieloplatformowa biblioteka C++ do programowania sieci i niskopoziomowych operacji we/wy
 Name:		asio
-Version:	1.26.0
+Version:	1.28.1
 Release:	1
 License:	Boost v1.0
 Group:		Development/Libraries
-URL:		https://think-async.com
-Source0:	http://downloads.sourceforge.net/asio/%{name}-%{version}.tar.bz2
-# Source0-md5:	5eff56aba0f54576f3d5f55b7730281b
+Source0:	https://downloads.sourceforge.net/asio/%{name}-%{version}.tar.bz2
+# Source0-md5:	d60da5576d5049e48021fea976524ae9
+URL:		https://think-async.com/Asio/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	boost-devel
